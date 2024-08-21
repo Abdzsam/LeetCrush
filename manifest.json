@@ -1,19 +1,11 @@
 {
     "manifest_version": 3,
-    "name": "Create a Chrome Extension with React and Webpack",
-    "description": "Demo Chrome Extension that uses React and Webpack",
+    "name": "LeetCrush",
+    "description": "Code Your Path to Limitless Potential",
     "version": "1.0.0",
-    "action": {
-      "default_popup": "index.html"
-    },
-    "background": {
-      "service_worker": "background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["contentScript.js"]
-      }
-    ]
-  }
-  
+    "icon": {
+      "16": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    }
+}
