@@ -3,13 +3,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const tailwindcss = require('tailwindcss')
 const autoprefixer = require('autoprefixer'); 
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
-    devtool: 'cheap-module-source-map',
     entry: {
         popup: path.resolve('./src/popup/popup.tsx'),
         options: path.resolve('./src/options/options.tsx'),
+        background: path.resolve('./src/background/background.ts'),
+        contentScript: path.resolve('./src/contentScript/contentScript.ts'),
+        newTab: path.resolve('src/tabs/index.tsx'),
     },
     module: {
         rules: [
@@ -19,20 +21,36 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                use: ['style-loader', 'css-loader', {
-                    loader: 'postcss-loader', // postcss loader needed for tailwindcss
-                    options: {
-                        postcssOptions: {
-                            ident: 'postcss',
-                            plugins: [tailwindcss, autoprefixer],
-                        }
-                    }
-                }],
                 test: /\.css$/i,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader', 
+                        options: {
+                            postcssOptions: {
+                                ident: 'postcss',
+                                plugins: [tailwindcss, autoprefixer],
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                type: 'assets/resource',
+                test: /\.(png|jpg|jpeg|gif|woff|woff2|tff|eot|svg|webp)$/,
             },
         ]
     },
     plugins: [
+        new CleanWebpackPlugin({
+            cleanStaleWebpackAssets: false
+        }),
         new CopyPlugin({
             patterns: [
               { 
@@ -54,7 +72,13 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-    }
+        path: path.join(__dirname, 'dist')
+    },
+    optimization: {
+        splitChunks: {
+          chunks: 'all',
+        },
+      },
 }
 
 function getHtmlPlugins(chunks) {
