@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "LeetCrush",
+    "description": "Code Your Path to Limitless Potential",
+    "version": "1.0.0",
+    "icon": {
+      "16": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    },
+    "options_page": "options.html",
+    "action": {
+      "default_title" : "Start Crushing!",
+      "default_popup" : "popup.html"
+    }
+}
