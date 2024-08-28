@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./popup.css";
 
 const Popup = () => {
+  //Progress
+
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -12,32 +14,36 @@ const Popup = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const getTextColorBasedOnProgress = (progress: number) => {
-    if (progress < 10) return "text-[#2C2C2C]";
-    if (progress < 30) return "text-[#FF0000]";
-    if (progress < 45) return "text-[#FFD700]";
-    if (progress < 60) return "text-[##FFC300]";
-    if (progress < 75) return "text-[#FFCC00]";
-    if (progress < 85) return "text-[#FF4500]";
-    if (progress < 90) return "text-[#1E90FF]";
-    if (progress < 95) return "text-[#1E90FF]";
-    if (progress < 100) return "text-[#C0C0C0]";
+  //Color change based on progress
 
-    return "text-[#DCDCDC]";
+  const getTextColorBasedOnProgress = (progress: number) => {
+    if (progress < 5) return "text-[#2C2C2C]";
+    if (progress < 15) return "text-red-400";
+    if (progress < 30) return "text-yellow-200";
+    if (progress < 45) return "text-yellow-500";
+    if (progress < 60) return "text-yellow-600";
+    if (progress < 75) return "text-[#b6172d]";
+    if (progress < 85) return "text-[#00d8ff]";
+    if (progress < 95) return "text-[#0973a3]";
+    if (progress < 99) return "text-[#44627e]";
+
+    return "text-[#f5f5fe]";
   };
 
   const textColorClass = getTextColorBasedOnProgress(progress);
 
+  //Image change based on progress
+
   const getImageBasedOnProgress = (progress: number) => {
-    if (progress < 10) return { src: "./goku/B.png", w: 90, h: 90 };
-    if (progress < 30) return { src: "./goku/K.png", w: 110, h: 110 };
-    if (progress < 45) return { src: "./goku/SS.png", w: 120, h: 120 };
-    if (progress < 60) return { src: "./goku/SS2.webp", w: 135, h: 135 };
-    if (progress < 75) return { src: "./goku/SS3.webp", w: 135, h: 135 };
-    if (progress < 85) return { src: "./goku/SSG.png", w: 95, h: 95 };
-    if (progress < 90) return { src: "./goku/SSB.png", w: 170, h: 170 };
+    if (progress < 5) return { src: "./goku/B.png", w: 90, h: 90 };
+    if (progress < 15) return { src: "./goku/K.png", w: 110, h: 110 };
+    if (progress < 30) return { src: "./goku/SS.png", w: 120, h: 120 };
+    if (progress < 45) return { src: "./goku/SS2.webp", w: 135, h: 135 };
+    if (progress < 60) return { src: "./goku/SS3.webp", w: 135, h: 135 };
+    if (progress < 75) return { src: "./goku/SSG.png", w: 95, h: 95 };
+    if (progress < 85) return { src: "./goku/SSB.png", w: 170, h: 170 };
     if (progress < 95) return { src: "./goku/SSBK.png", w: 105, h: 105 };
-    if (progress < 100) return { src: "./goku/UIU.png", w: 140, h: 140 };
+    if (progress < 99) return { src: "./goku/UIU.png", w: 140, h: 140 };
 
     return { src: "./goku/UIM.png", w: 135, h: 135 };
   };
@@ -46,8 +52,12 @@ const Popup = () => {
 
   return (
     <div className="w-[310px] h-[200px] flex flex-col items-center space-y-4 bg-[#000000] p-6 shadow-lg">
-      <div className="relative right-16 flex justify-center items-center">
-        <span className={`absolute bottom-40 left-1 text-lg ${textColorClass}`}>{progress}%</span>
+      <div className="relative right-16 flex justify-center items-center text-ye">
+        <span
+          className={`absolute bottom-40 left-1 text-lg font-extrabold font-sans ${textColorClass}`}
+        >
+          {progress}%
+        </span>
         <div
           className={`radial-progress ${textColorClass} left-2`}
           style={
